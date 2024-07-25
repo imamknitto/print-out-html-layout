@@ -8,11 +8,12 @@
      and fixed bottom footer.
   
    # Example usage using react-to-print library:
-     Create useRef:
-       const printExampleRef = useRef(null);
-  
      In your main component:
-      const handlePrint = useReactToPrint({
+       1. Create useRef:
+         const printExampleRef = useRef(null);
+      
+       2. Create print handle function:
+        const handlePrint = useReactToPrint({
           content: () => printExampleRef.current,
           pageStyle: `@media print {
             @page {
@@ -31,12 +32,19 @@
           }`,
         });
 
-      Place this component to your main component:
+       3. Place this component to your main component:
         <div style={{ display: 'none' }}>
-          <div ref={printLayoutRef}>
-            <PrintedOrder />
-          </div>
+          <PrintOutExample
+            ref={printExampleRef}
+            data={Array.from({ length: 50 }, (_, index) => ({
+              id: index + 1,
+              name: `Item ${index + 1}`,
+              value: Math.floor(Math.random() * 100),
+            }))}
+          />
         </div>
+
+        NB: Both data props and DUMMY data are examples for map data to table body.
  */
 
 import { Flex } from "antd";
